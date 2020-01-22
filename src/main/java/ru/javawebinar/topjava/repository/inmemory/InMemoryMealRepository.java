@@ -1,6 +1,7 @@
-package ru.javawebinar.topjava.repository;
+package ru.javawebinar.topjava.repository.inmemory;
 
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.util.Collection;
@@ -18,7 +19,7 @@ public class InMemoryMealRepository implements MealRepository {
 
     @Override
     public Meal save(Meal meal) {
-        if(meal.isNew()) {
+        if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
             repository.put(meal.getId(), meal);
             return meal;
