@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.service;
 
+
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
@@ -13,7 +14,13 @@ public class UserService {
 
     private UserRepository repository;
 
-    public User create(User user) { return repository.save(user); }
+    public void setRepository(UserRepository repository) {
+        this.repository = repository;
+    }
+
+    public User create(User user) {
+        return repository.save(user);
+    }
 
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id), id);
@@ -27,7 +34,9 @@ public class UserService {
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 
-    public List<User> getAll() { return repository.getAll(); }
+    public List<User> getAll() {
+        return repository.getAll();
+    }
 
     public void update(User user) throws NotFoundException {
         checkNotFoundWithId(repository.save(user), user.getId());
