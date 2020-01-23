@@ -14,9 +14,11 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     @Override
-    public String toString() { return super.toString() + '(' + name + ')'; }
+    public String toString() {
+        return super.toString() + '(' + name + ')';
+    }
 }

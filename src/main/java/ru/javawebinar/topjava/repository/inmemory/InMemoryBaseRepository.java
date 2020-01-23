@@ -24,9 +24,15 @@ public class InMemoryBaseRepository<T extends AbstractBaseEntity> {
         return map.computeIfPresent(entry.getId(), (id, oldT) -> entry);
     }
 
-    public boolean delete(int id) { return map.remove(id) != null; }
+    public boolean delete(int id) {
+        return map.remove(id) != null;
+    }
 
-    public T get(int id) { return map.get(id); }
+    public T get(int id) {
+        return map.get(id);
+    }
 
-    Collection<T> getCollection() { return map.values(); }
+    Collection<T> getCollection() {
+        return map.values();
+    }
 }

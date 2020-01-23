@@ -24,6 +24,7 @@ public class InMemoryMealRepository implements MealRepository {
 
     // Map  userId -> mealRepository
     private Map<Integer, InMemoryBaseRepository<Meal>> usersMealsMap = new ConcurrentHashMap<>();
+
     {
         MealsUtil.MEALS.forEach(meal -> save(meal, USER_ID));
 
@@ -35,8 +36,8 @@ public class InMemoryMealRepository implements MealRepository {
     @Override
     public Meal save(Meal meal, int userId) {
         InMemoryBaseRepository<Meal> meals = usersMealsMap.computeIfAbsent(userId, uid -> new InMemoryBaseRepository<>());
-            return meals.save(meal);
-        }
+        return meals.save(meal);
+    }
 
     @Override
     public boolean delete(int id, int userId) {
