@@ -31,7 +31,7 @@ public class MealServiceTest {
     @Test(expected = NotFoundException.class)
     public void delete() throws Exception {
         service.delete(MEAL1_ID, USER_ID);
-        assertMatch(service.getAll(USER_ID), MEAL6, MEAL5, MEAL4, MEAL3, MEAL2);
+        service.get(MEAL1_ID, USER_ID);
     }
 
     @Test(expected = NotFoundException.class)
