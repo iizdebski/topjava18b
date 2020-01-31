@@ -1,41 +1,44 @@
 package ru.javawebinar.topjava.web;
 
-
 import org.slf4j.Logger;
-        import org.slf4j.LoggerFactory;
-        import org.springframework.context.ConfigurableApplicationContext;
-        import org.springframework.context.support.ClassPathXmlApplicationContext;
-        import org.springframework.util.StringUtils;
-        import ru.javawebinar.topjava.model.Meal;
-        import ru.javawebinar.topjava.web.meal.MealRestController;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.StringUtils;
+import ru.javawebinar.topjava.Profiles;
+import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.web.meal.MealRestController;
 
-        import javax.servlet.ServletConfig;
-        import javax.servlet.ServletException;
-        import javax.servlet.http.HttpServlet;
-        import javax.servlet.http.HttpServletRequest;
-        import javax.servlet.http.HttpServletResponse;
-        import java.io.IOException;
-        import java.time.LocalDate;
-        import java.time.LocalDateTime;
-        import java.time.LocalTime;
-        import java.time.temporal.ChronoUnit;
-        import java.util.Objects;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
+import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
+import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
-        import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
-        import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
 public class MealServlet extends HttpServlet {
 
     private static final Logger log = LoggerFactory.getLogger(MealServlet.class);
 
-    private ConfigurableApplicationContext springContext;
+    private ClassPathXmlApplicationContext springContext;
     private MealRestController mealController;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init();
-        springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"}, false);
+        //    springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
+        springContext.refresh();
         mealController = springContext.getBean(MealRestController.class);
     }
 
