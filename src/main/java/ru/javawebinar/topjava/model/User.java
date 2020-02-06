@@ -1,4 +1,3 @@
-
 package ru.javawebinar.topjava.model;
 
 
