@@ -27,6 +27,7 @@ class RootControllerTest extends AbstractControllerTest {
                                 assertMatch(actual, ADMIN, USER);
                             }
                         }
+
                 ));
     }
 }
